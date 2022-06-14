@@ -14,7 +14,11 @@ class DioService {
 
   DioService._internal() {
     dio = Dio(
-      BaseOptions(baseUrl: baseUrl, connectTimeout: 5000, receiveTimeout: 3000),
+      BaseOptions(
+        baseUrl: baseUrl,
+          connectTimeout: 60*1000,
+          receiveTimeout: 60*1000,
+      ),
     );
     initializeInterceptors();
   }
@@ -40,9 +44,9 @@ class DioService {
     return response;
   }
 
-  Future<WeatherModel> getWeather() async {
+  Future<WeatherModel> getWeather(String currentCity) async {
     Response weatherData = await dio!.get(
-        "${baseUrl}current?access_key=6376ee19aa36033371d3337b7ecc93bb&query=New%20York");
+        "${baseUrl}current?access_key=6376ee19aa36033371d3337b7ecc93bb&query=$currentCity");
 
     //Prints the raw data returned by the server
     print("Weather Info: ${weatherData.data}");

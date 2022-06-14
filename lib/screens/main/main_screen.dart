@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:public_api/screens/main/home_screen.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 class MainScreen extends StatefulWidget {
@@ -11,7 +12,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late PageController _pageController;
   int selectedIndex = 0;
-  bool _colorful = false;
 
   @override
   void initState() {
@@ -30,52 +30,50 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: _listOfWidget,
       ),
-      bottomNavigationBar: SlidingClippedNavBar(
-        backgroundColor: Colors.white,
-        onButtonPressed: onButtonPressed,
-        iconSize: 30,
-        activeColor: const Color(0xFF01579B),
-        selectedIndex: selectedIndex,
-        barItems: <BarItem>[
-          BarItem(
-            icon: Icons.event,
-            title: 'Events',
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.only(bottom: 5),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25.0),
+          child: SlidingClippedNavBar(
+            backgroundColor: Colors.grey.shade900,
+            onButtonPressed: onButtonPressed,
+            iconSize: 25,
+            activeColor: Colors.blue,
+            fontSize: 15,
+            selectedIndex: selectedIndex,
+            barItems: <BarItem>[
+              BarItem(
+                icon: Icons.home,
+                title: 'Home',
+              ),
+              BarItem(
+                icon: Icons.search_rounded,
+                title: 'Search',
+              ),
+              BarItem(
+                icon: Icons.bolt_rounded,
+                title: 'Energy',
+              ),
+              BarItem(
+                icon: Icons.person_outline,
+                title: 'Profile',
+              ),
+            ],
           ),
-          BarItem(
-            icon: Icons.search_rounded,
-            title: 'Search',
-          ),
-          BarItem(
-            icon: Icons.bolt_rounded,
-            title: 'Energy',
-          ),
-          BarItem(
-            icon: Icons.tune_rounded,
-            title: 'Settings',
-          ),
-        ],
+        ),
       ),
     );
   }
 }
 
-// icon size:24 for fontAwesomeIcons
-// icons size: 30 for MaterialIcons
-
 List<Widget> _listOfWidget = <Widget>[
-  Container(
-    alignment: Alignment.center,
-    child: const Icon(
-      Icons.event,
-      size: 56,
-      color: Colors.brown,
-    ),
-  ),
+  const HomePage(),
   Container(
     alignment: Alignment.center,
     child: const Icon(
